@@ -12,19 +12,15 @@ Before transformers (2017), RNNs and LSTMs processed text sequentially — word 
 
 
 ### The Full Forward Pass (Simply)
-Input tokens
-    ↓
-Token Embeddings + Positional Encoding
-    ↓
-[Repeat N times]
-  → Multi-Head Self-Attention
-  → Add & Norm
-  → Feed-Forward Network
-  → Add & Norm
-    ↓
-Final hidden states
-    ↓
-Linear + Softmax → Probability over vocabulary
+- Input tokens
+- Token Embeddings + Positional Encoding
+- Repeat N times:
+  - Multi-Head Self-Attention
+  - Add & Norm
+  - Feed-Forward Network
+  - Add & Norm
+- Final hidden states
+- Linear + Softmax → Probability over vocabulary
 
 ### 1. Input Embeddings + Positional Encoding
 - Words are converted to vectors (embeddings) — numbers that capture meaning
