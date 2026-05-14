@@ -72,3 +72,75 @@ Defense in system prompt:
  ```
 
 - For production: add input validation layer before the LLM call — don't rely on the model alone.
+
+## 2. Few-Shot Prompting
+
+Providing input-output examples within the prompt so the model learns the pattern you want — without any fine-tuning.
+The null example (Example 3) is critical — teaches the model how to handle edge cases.
+
+- **Zero-shot:** Task description only → model guesses format
+- **One-shot:** 1 example → model gets the idea
+- **Few-shot:** 3–8 examples → model reliably follows pattern
+- **Many-shot:** 10+ examples → approaches fine-tuning quality
+
+Example of few-shot prompting
+```yaml
+[Task Description]
+
+Example 1:
+Input: {input_1}
+Output: {output_1}
+
+Example 2:
+Input: {input_2}
+Output: {output_2}
+
+Example 3:
+Input: {input_3}
+Output: {output_3}
+
+Now complete:
+Input: {actual_input}
+Output:
+```
+
+
+## 3. Chain-of-Thought (CoT)
+Instructing the model to show its reasoning step by step before giving the final answer. Forces the model to "think out loud" — dramatically improves accuracy on complex tasks.
+
+### CoT Variants
+1. Zero-Shot CoT: Just telling the model to 'think step by step'
+2. Few-Shot CoT: Give multiple examples
+```yaml
+Example:
+Q: Patient has CrCl 45 mL/min. Drug requires dose 
+   reduction below CrCl 60. Standard dose is 500mg. 
+   Reduction factor is 50%. What dose?
+
+A: Step 1: Check CrCl threshold
+   CrCl = 45 mL/min, threshold = 60 mL/min
+   45 < 60 → dose reduction required
+   
+   Step 2: Apply reduction factor
+   Standard dose = 500mg
+   Reduction = 50% → 500mg × 0.50 = 250mg
+   
+   Step 3: Final dose = 250mg
+
+Now solve: [actual question]
+```
+
+3. Self-Consistency CoT: Generate multiple reasoning paths, take majority vote
+4. Tree of Thought (ToT) — Advanced CoT: When a problem requires exploration rather than linear reasoning. Used for: architecture design decisions, treatment planning, complex code generation.
+```yaml
+[Problem]
+                        │
+           ┌────────────┼────────────┐
+        [Path A]    [Path B]     [Path C]
+           │            │            │
+        [A.1]        [B.1]        [C.1]
+        [A.2]        [B.2] ✓      [C.1] ✗
+           │            │
+        [A.2.1]     [B.2.1] ← BEST PATH
+```
+5. ReAct Pattern (Reasoning + Acting): Combines CoT with tool use — the backbone of modern agents. This Thought → Action → Observation loop is exactly how LangGraph and CrewAI agents work internally.
