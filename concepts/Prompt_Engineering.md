@@ -144,3 +144,86 @@ Now solve: [actual question]
         [A.2.1]     [B.2.1] ← BEST PATH
 ```
 5. ReAct Pattern (Reasoning + Acting): Combines CoT with tool use — the backbone of modern agents. This Thought → Action → Observation loop is exactly how LangGraph and CrewAI agents work internally.
+
+## 4. Structure Output
+Constraining the model's output to a specific schema — JSON, XML, or custom format — so downstream code can parse it reliably.
+
+| LLMs / Framework | Structured Output tool |
+| --- | --- |
+| OpenAI | Pydantic |
+| Anthropic | Instruction |
+| LangChain | Pydantic Output Parser |
+
+### Production Prompt Pipeline
+
+<!-- Mermaid diagram (preferred) -->
+```mermaid
+flowchart TB
+  UserQuery([User Query])
+  QueryAnalysis([Query Analysis<br/>(Router LLM)])
+  UserQuery --> QueryAnalysis
+
+  subgraph Paths
+    SimpleQ([Simple Q<br/>Few-shot template])
+    ComplexQ([Complex Q<br/>CoT + ReAct])
+    Extraction([Extraction<br/>Structured Output])
+  end
+
+  QueryAnalysis --> SimpleQ
+  QueryAnalysis --> ComplexQ
+  QueryAnalysis --> Extraction
+
+  SimpleQ --> SystemPrompt
+  ComplexQ --> SystemPrompt
+  Extraction --> SystemPrompt
+
+  SystemPrompt([System Prompt<br/>+ Retrieved Context]) --> LLMCall([LLM Call])
+  LLMCall --> OutputParser([Output Parser<br/>+ Guardrails])
+  OutputParser --> FinalResponse([Final Response])
+```
+
+<!-- Fallback: show original ASCII diagram for viewers without Mermaid support -->
+<details>
+<summary>ASCII diagram (fallback)</summary>
+
+```text
+┌─────────────────┐
+                    │   User Query    │
+                    └────────┬────────┘
+                             │
+                    ┌────────▼────────┐
+                    │  Query Analysis │  ← CoT to classify intent
+                    │  (Router LLM)  │
+                    └────────┬────────┘
+                             │
+              ┌──────────────┼──────────────┐
+              │              │              │
+    ┌─────────▼──┐  ┌────────▼────┐  ┌─────▼──────┐
+    │  Simple Q  │  │  Complex Q  │  │  Extraction│
+    │  Few-shot  │  │    CoT      │  │ Structured │
+    │  template  │  │  + ReAct    │  │   Output   │
+    └─────────┬──┘  └────────┬────┘  └─────┬──────┘
+              │              │              │
+              └──────────────┼──────────────┘
+                             │
+                    ┌────────▼────────┐
+                    │  System Prompt  │
+                    │  + Retrieved    │
+                    │    Context      │
+                    └────────┬────────┘
+                             │
+                    ┌────────▼────────┐
+                    │   LLM Call      │
+                    └────────┬────────┘
+                             │
+                    ┌────────▼────────┐
+                    │ Output Parser   │  ← Structured + validated
+                    │ + Guardrails    │
+                    └────────┬────────┘
+                             │
+                    ┌────────▼────────┐
+                    │  Final Response │
+                    └─────────────────┘
+```
+
+</details>
