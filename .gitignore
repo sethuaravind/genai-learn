@@ -3,3 +3,5 @@
 # Filetypes
 *.pdf
 *.env
+*.faiss
+*.pkl
