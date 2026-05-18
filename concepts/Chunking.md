@@ -35,3 +35,10 @@ Cons
 LangChain's default — splits on a hierarchy of separators, trying each until chunks are small enough.
 
 Better than fixed-size — respects natural text boundaries. But still structure-agnostic.
+
+## 3. Semantic Chunking
+Uses embedding similarity to find natural breakpoints — splits where meaning changes significantly.
+Core idea: consecutive sentences with high similarity belong together. When similarity drops sharply, that's a chunk boundary.
+
+## 4. Hierarchical Chunking
+Stores document at multiple levels of granularity simultaneously — big chunks for context, small chunks for precision. Retrieval uses small chunks but returns their parent for context.
