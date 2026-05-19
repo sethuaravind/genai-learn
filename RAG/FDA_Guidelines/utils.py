@@ -41,3 +41,10 @@ def build_faiss_store(chunks: list[str], embeddings: OpenAIEmbeddings, persist_d
     vectorstore = FAISS.from_texts(chunks, embeddings)
     vectorstore.save_local(persist_directory)
     return vectorstore
+
+
+def load_faiss_store(persist_directory: str, embeddings: OpenAIEmbeddings) -> FAISS:
+    """Load a persisted FAISS vector store from disk."""
+    if not os.path.exists(persist_directory):
+        raise FileNotFoundError(f"Vector store directory not found: {persist_directory}")
+    return FAISS.load_local(persist_directory, embeddings, allow_dangerous_deserialization=True)

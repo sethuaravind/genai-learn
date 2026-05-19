@@ -5,3 +5,8 @@
 *.env
 *.faiss
 *.pkl
+
+# Folders
+__pycache__
+*/__pycache__/*
+faiss_store/*

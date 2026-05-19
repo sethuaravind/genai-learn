@@ -7,3 +7,8 @@
 - LLM model development
 - Prompt
 - Integration of the vector store
+
+
+# to-do
+- Check why I am getting None from the results
+- Check what is 'k' in the retreival (vectorstore)

@@ -7,3 +7,7 @@ Concepts
 2. Tokenization
 3. Prompt Engineering
 4. Chunking
+
+
+Hands-on Coding
+1. RAG -> FDA_Guidelines
