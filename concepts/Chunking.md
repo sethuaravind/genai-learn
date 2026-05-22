@@ -42,3 +42,17 @@ Core idea: consecutive sentences with high similarity belong together. When simi
 
 ## 4. Hierarchical Chunking
 Stores document at multiple levels of granularity simultaneously — big chunks for context, small chunks for precision. Retrieval uses small chunks but returns their parent for context.
+
+## 5. Late Chunking
+- The newest and most conceptually different approach. Instead of chunking before embedding, it embeds the full document first, then chunks the embeddings.
+- Standard chunking loses cross-chunk context.
+- Late chunking solves this because the full document context is available during embedding.
+
+| Use Case | Chunk Size | Overlap | Strategy |
+|---|---|---|---|
+| Clinical trial protocols | 400-600 tokens | 10% | Hierarchical |
+| Scientific papers | 300-500 tokens | 15% | Semantic + Late |
+| Legal documents | 500-800 tokens | 10% | Hierarchical |
+| Customer support FAQs | 100-200 tokens | 5% | Recursive |
+| Code documentation | 200-400 tokens | 20% | Recursive |
+| News articles | 200-300 tokens | 10% | Semantic |
