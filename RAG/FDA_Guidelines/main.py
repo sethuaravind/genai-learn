@@ -2,8 +2,9 @@ import os
 from dotenv import load_dotenv
 from llm import answer_question_from_fda
 from utils import *
+from pathlib import Path
 
-load_dotenv()
+load_dotenv(Path().resolve() / ".env")
 
 base_dir = os.path.dirname(__file__)
 persist_dir = os.path.join(base_dir, "faiss_store")
@@ -40,4 +41,4 @@ def chat(question: str) -> str:
 
 
 if __name__ == "__main__":
-    print(chat("Give a example for BIMO inspection"))
+    print(chat("Give a example for BIMO inspection in point wise format"))

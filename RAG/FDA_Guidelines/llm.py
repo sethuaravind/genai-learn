@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 def get_openai_llm(
-    model_name: str = "gpt-4o-mini",
+    model_name: str = "gpt-5.4-mini-2026-03-17",
     temperature: float = 0.0,
     max_tokens: int = 1024,
 ) -> OpenAI:
@@ -23,7 +23,7 @@ def get_openai_llm(
 def build_fda_qa_chain(
     vectorstore: Any,
     llm: Optional[OpenAI] = None,
-    model_name: str = "gpt-4o-mini",
+    model_name: str = "gpt-5.4-mini-2026-03-17",
     temperature: float = 0.0,
     max_tokens: int = 1024,
     k: int = 4,
@@ -55,7 +55,7 @@ def build_fda_qa_chain(
 def answer_question_from_fda(
     vectorstore: Any,
     question: str,
-    model_name: str = "gpt-4o-mini",
+    model_name: str = "gpt-5.4-mini-2026-03-17",
     temperature: float = 0.0,
     max_tokens: int = 1024,
     k: int = 4,
@@ -76,7 +76,7 @@ def answer_question_from_fda(
     logger.debug("FDA QA result returned")
     return {
         "question": question,
-        "answer": result.get("result") if isinstance(result, dict) else result,
+        "answer": result.get("answer"),
         "raw": result,
     }
 

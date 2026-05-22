@@ -1,7 +1,8 @@
-python-dotenv
-pymupdf
-langchain
-langchain_text_splitters
-langchain_openai
-faiss-cpu
-langchain-community
+python-dotenv==1.2.2
+PyMuPDF==1.27.2.3
+langchain-core==1.4.0
+langchain-openai==1.2.1
+langchain-classic==1.0.7
+langchain-text-splitters==1.1.2
+langchain-community==0.4.1
+faiss-cpu==1.13.2

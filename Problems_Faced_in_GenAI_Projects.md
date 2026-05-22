@@ -16,3 +16,10 @@ Notes and best practices:
 - Generate deterministic placeholder IDs (incrementing or hashed) to make replacement straightforward.
 - Validate and sanitize replaced URLs before returning them to callers.
 - For enhanced security, keep signed URLs short-lived and store the real URLs in a secure store rather than logging them.
+
+## Cognitive Overload in the LLM
+- Asking a single LLM to handle many tasks at once often hurts reasoning quality, especially for problems that require deep, multi-step thought.
+- Splitting tasks can improve accuracy even when it adds some overhead; batch processing should be balanced to preserve both speed and correctness.
+
+### Solution
+- Use a sub-agent architecture to divide responsibilities and let specialized agents handle each logical task independently.
