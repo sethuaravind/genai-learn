@@ -5,6 +5,16 @@ This module implements a small Retrieval-Augmented Generation (RAG) assistant fo
 **Purpose**
 - Provide precise answers grounded in FDA guideline text using a vectorstore + LLM retrieval chain.
 
+**Flow**
+- Read PDF
+- Chunk the document
+- Embedd it
+- Create a local vector store
+- Create a document chain
+- Create a document retrieval
+- LLM chain
+- Invoke the LLM
+
 **Contents**
 - `llm.py`: helpers to build the retrieval QA chain and answer questions programmatically. See [RAG/FDA_Guidelines/llm.py](RAG/FDA_Guidelines/llm.py#L1)
 - `main.py`: (optional) small runner or example entrypoint.

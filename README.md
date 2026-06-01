@@ -13,7 +13,8 @@ Overview
 - Chunking
 
 ## Hands-on
-- RAG/FDA_Guidelines — example RAG implementation that indexes an FDA guidance PDF and answers questions using a retrieval + LLM chain.
+RAG
+    - RAG/FDA_Guidelines — example RAG implementation that indexes an FDA guidance PDF and answers questions using a retrieval + LLM chain.
 
 Quick start
 1. Create and activate a Python virtual environment (recommended):
