@@ -9,10 +9,8 @@ def read_pdf_text(pdf_path: str) -> str:
     """Read the full text of a PDF file using PyMuPDF."""
     if not os.path.exists(pdf_path):
         raise FileNotFoundError(f"PDF file not found: {pdf_path}")
-
     document = fitz.open(pdf_path)
     text_parts = []
-
     for page in document:
         text_parts.append(page.get_text())
 
