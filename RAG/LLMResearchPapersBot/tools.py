@@ -217,38 +217,5 @@ def process_pdfs_to_pinecone(
         namespace=namespace
     )
     
-    print("\n=== Pipeline Complete ===\n")
+    print("\n=== Upload Complete ===\n")
     return vector_store
-
-
-# Example usage function
-def example_usage():
-    """Example of how to use the tools."""
-    # Load environment variables
-    from dotenv import load_dotenv
-    load_dotenv()
-    
-    # Configuration
-    pdf_directory = "./data"  # Update this to your PDF directory
-    index_name = "research-papers"
-    namespace = "llm-papers"
-    
-    # Run the pipeline
-    vector_store = process_pdfs_to_pinecone(
-        pdf_directory=pdf_directory,
-        index_name=index_name,
-        namespace=namespace
-    )
-    
-    # Example: Search in the vector store
-    query = "What are the main findings?"
-    results = vector_store.similarity_search(query, k=3)
-    
-    print("\n=== Search Results ===")
-    for i, result in enumerate(results, 1):
-        print(f"\n{i}. {result.metadata.get('source', 'Unknown')}")
-        print(f"Content: {result.page_content[:200]}...")
-
-
-if __name__ == "__main__":
-    example_usage()
