@@ -5,6 +5,7 @@
 *.env
 *.faiss
 *.pkl
+*.csv
 
 # Folders
 __pycache__
