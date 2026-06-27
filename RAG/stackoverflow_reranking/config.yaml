@@ -1,0 +1,4 @@
+# Pinecone
+Pinecone:
+  index_name: "llm-research-papers-bot"
+  namespace: "llm-papers"
